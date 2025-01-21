@@ -1,0 +1,21 @@
+#!/bin/bash 
+mode: 'inference'
+use_cuda: 1 # 1 for True, 0 for False
+num_gpu: 1
+sampling_rate: 16000
+network: "MossFormer2_SS_16K"  ##network type
+checkpoint_dir: "checkpoints/MossFormer2_SS_16K"
+input_path: "data/wsj0_2mix_16k_fullpath.lst"  # an input dir or input scp file
+#input_path: "/home/shengkui.zhao/DingTalk_NS/data/webrtc_test_set_20200521_16k/noisy"
+#input_path: "/mnt/nas_sg/mit_sg/shengkui.zhao/ComplexNN/audio/youtube_testset_16k/noisy_long/noisy"
+output_dir: "outputs/MossFormer2_SS_16K_wsj0_2mix" ## output dir to store processed audio
+
+# decode parameters
+one_time_decode_length: 30 #maximum segment length for one-pass decoding (seconds), longer audio (>3s) will use segmented decoding
+decode_window: 10 #one-pass decoding length
+
+num_spks: 2
+encoder_kernel_size: 16
+encoder_embedding_dim: 512
+mossformer_sequence_dim: 512
+num_mossformer_layer: 24

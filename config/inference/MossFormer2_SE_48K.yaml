@@ -1,0 +1,22 @@
+#!/bin/bash 
+mode: 'inference'
+use_cuda: 1 # 1 for True, 0 for False
+num_gpu: 1
+sampling_rate: 48000
+network: "MossFormer2_SE_48K"  ##network type
+checkpoint_dir: "checkpoints/MossFormer2_SE_48K"
+
+#input_path: support wav dir or wav scp or a wav file
+input_path: "/mnt/nas/mit_sg/shengkui.zhao/DNS-Challenge/datasets/test_set/synthetic/no_reverb/noisy"
+output_dir: "outputs/MossFormer2_SE_48K_dns_2020_noreverb"
+
+# decode parameters
+one_time_decode_length: 30 #maximum segment length for one-pass decoding (seconds), longer audio  will use segmented decoding
+decode_window: 30 #one-pass decoding length
+
+# FFT parameters
+win_type: 'hamming'
+win_len: 1920
+win_inc: 384
+fft_len: 1920
+num_mels: 60

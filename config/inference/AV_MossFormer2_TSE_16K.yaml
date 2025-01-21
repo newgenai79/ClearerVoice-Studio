@@ -1,0 +1,41 @@
+#!/bin/bash 
+mode: 'inference'
+use_cuda: 1 # 1 for True, 0 for False
+num_gpu: 1
+sampling_rate: 16000
+network: "AV_MossFormer2_TSE_16K"  # network type
+checkpoint_dir: "checkpoints/AV_MossFormer2_TSE_16K"
+
+input_path: "scp/video_samples.scp"  # an input dir or input scp file
+output_dir: "path_to_output_videos_tse" # output dir to store processed audio
+
+# decode parameters
+one_time_decode_length: 3 # maximum segment length for one-pass decoding (seconds), longer audio (>5s) will use segmented decoding
+decode_window: 3 # one-pass decoding length
+
+
+# Model-specific settings for target speaker extraction
+network_reference:
+  cue: lip           
+  backbone: resnet18  
+  emb_size: 256       
+network_audio:
+  backbone: mossformer2
+  encoder_kernel_size: 16
+  encoder_out_nchannels: 512
+  encoder_in_nchannels: 1
+  
+  masknet_numspks: 1
+  masknet_chunksize: 250
+  masknet_numlayers: 1
+  masknet_norm: "ln"
+  masknet_useextralinearlayer: False
+  masknet_extraskipconnection: True
+
+  intra_numlayers: 24
+  intra_nhead: 8
+  intra_dffn: 1024
+  intra_dropout: 0
+  intra_use_positional: True
+  intra_norm_before: True
+        

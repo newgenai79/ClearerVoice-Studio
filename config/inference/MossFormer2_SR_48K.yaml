@@ -1,0 +1,16 @@
+#!/bin/bash 
+mode: 'inference'
+config_json: "config/inference/MossFormer2_SR_48K.json"
+use_cuda: 1 # 1 for True, 0 for False
+num_gpu: 1
+sampling_rate: 48000
+network: "MossFormer2_SR_48K"  ##network type
+checkpoint_dir: "checkpoints/MossFormer2_SR_48K"
+
+#input_path: support wav dir or wav scp or a wav file
+input_path: "samples/scp/cv_demand_testset_16k.scp"
+output_dir: "outputs/MossFormer2_SR_48K"
+
+# decode parameters
+one_time_decode_length: 20 #maximum segment length for one-pass decoding (seconds), longer audio  will use segmented decoding
+decode_window: 4 #one-pass decoding length
