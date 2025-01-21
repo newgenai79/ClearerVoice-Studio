@@ -1,12 +1,10 @@
 import torch
 import soundfile as sf
 import gradio as gr
-import spaces
 from clearvoice import ClearVoice
 import os
 import random
 
-@spaces.GPU
 def fn_clearvoice_se(input_wav, sr):
     if sr == "16000 Hz":
         myClearVoice = ClearVoice(task='speech_enhancement', model_names=['FRCRN_SE_16K'])
@@ -23,7 +21,6 @@ def fn_clearvoice_se(input_wav, sr):
     sf.write('enhanced.wav', output_wav[0,:], fs)
     return 'enhanced.wav'
 
-@spaces.GPU
 def fn_clearvoice_ss(input_wav):
     myClearVoice = ClearVoice(task='speech_separation', model_names=['MossFormer2_SS_16K'])
     output_wav_dict = myClearVoice(input_path=input_wav, online_write=False)
@@ -53,7 +50,6 @@ def find_mp4_files(directory):
     return mp4_files
     
 
-@spaces.GPU()
 def fn_clearvoice_tse(input_video):
     myClearVoice = ClearVoice(task='target_speaker_extraction', model_names=['AV_MossFormer2_TSE_16K'])
     #output_wav_dict = 
@@ -64,7 +60,6 @@ def fn_clearvoice_tse(input_video):
     
     return output_list
     
-@spaces.GPU
 def fn_clearvoice_sr(input_wav, apply_se):
     wavname = input_wav.split('/')[-1]
     myClearVoice = ClearVoice(task='speech_super_resolution', model_names=['MossFormer2_SR_48K'])

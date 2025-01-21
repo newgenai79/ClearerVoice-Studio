@@ -19,5 +19,4 @@ scenedetect
 torchvision
 pydub
 gradio
-spaces
 huggingface-hub
